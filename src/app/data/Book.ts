@@ -6,7 +6,7 @@ export interface Book {
     
     format: 'physical' | 'e book' | 'audiobook'; 
     status: 'Want to read' | 'Currently reading' | 'Read' | 'Stopped';
-    total_pages: number | null;
+    total_pages: number ;
     current_page: number; 
     total_reading_time: number; 
     

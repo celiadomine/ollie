@@ -21,7 +21,9 @@ export class BookService {
     const { data, error } = await this.supabase
       .from(this.tableName)
       .select('*')
-      .order('title', { ascending: true }); 
+      .order('title', { ascending: false })
+      .limit(1); 
+
 
     if (error) {
       console.error('Error fetching books:', error);
@@ -93,5 +95,35 @@ export class BookService {
         throw error;
     }
     return data;
+  }
+
+  async markAsRead(bookId: string, finalPage: number, rating: number, reviewText: string) {
+    const { data, error } = await this.supabase
+        .from('book')
+        .update({
+            status: 'Read',
+            current_page: finalPage,
+            rating: rating,
+            review_text: reviewText
+        })
+        .eq('id', bookId)
+        .select();
+
+    if (error) {
+        throw error;
+    }
+    return data;
+  }
+  
+  async deleteBook(bookId: string) {
+    const { error } = await this.supabase
+        .from('book')
+        .delete()
+        .eq('id', bookId);
+        
+    if (error) {
+        throw error;
+    }
+    return true;
 }
 }

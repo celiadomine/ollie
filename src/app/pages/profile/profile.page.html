@@ -1,11 +1,6 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="tertiary">
-    <ion-title>Profile & Settings</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-list>
+    
     <ion-list-header>
       <ion-label>Appearance</ion-label>
     </ion-list-header>
@@ -13,6 +8,22 @@
     <ion-item lines="full">
       <ion-label>Dark Mode</ion-label>
       <ion-toggle slot="end" [checked]="isDarkMode" (ionChange)="toggleDarkMode($event)"></ion-toggle>
+    </ion-item>
+    
+    <ion-list-header class="ion-margin-top">
+      <ion-label>Features</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Daily Reading Reminder (6:00 PM)</ion-label>
+      <ion-toggle slot="end" [checked]="isNotificationsEnabled" (ionChange)="toggleNotifications($event)"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>Ollie - Online Library</h2>
+        <p>Your personal companion for physical and digital books.</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

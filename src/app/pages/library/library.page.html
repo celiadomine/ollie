@@ -1,51 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
-    <ion-title>Add New Book</ion-title>
+    <ion-title>Your Library</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
+    
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedStatusFilter" (ionChange)="filterBooks()">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Currently reading">
+        <ion-label>Reading</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Want to read">
+        <ion-label>Planned</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Read">
+        <ion-label>Finished</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-list>
+    <ion-header>
+      <ion-label>Total Books: {{ filteredBooks.length }}</ion-label>
+    </ion-header>
+
+    @for (book of filteredBooks; track book.id) {
+      <ion-item detail>
+        <ion-label>
+          <h2>{{ book.title }} <ion-badge color="tertiary">{{ book.format }}</ion-badge></h2>
+          <p>{{ book.author }} ({{ book.genre }})</p>
+          <p>Status: <strong>{{ book.status }}</strong></p>
+        </ion-label>
+        
+        <ion-buttons slot="end">
+            <ion-button color="primary" (click)="openEditBookModal(book)">
+                <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button color="danger" (click)="deleteBook(book.id)">
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+      </ion-item>
+    }
+    
+    <p *ngIf="filteredBooks.length === 0" class="ion-padding ion-text-center">
+      No books found in this category.
+    </p>
+
+  </ion-list>
   
-  <form (ngSubmit)="addBook()">
-    <ion-list>
-      
-      <ion-item>
-        <ion-input label="Title" labelPlacement="floating" [(ngModel)]="newBook.title" name="title" required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input label="Author" labelPlacement="floating" [(ngModel)]="newBook.author" name="author" required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input label="Total Pages" labelPlacement="floating" type="number" [(ngModel)]="newBook.total_pages" name="pages" required min="1"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input label="Genre" labelPlacement="floating" [(ngModel)]="newBook.genre" name="genre"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-select label="Format" labelPlacement="floating" [(ngModel)]="newBook.format" name="format">
-          <ion-select-option value="physical">Physical</ion-select-option>
-          <ion-select-option value="ebook">eBook</ion-select-option>
-          <ion-select-option value="audio">Audiobook</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-    </ion-list>
-
-    <ion-button expand="block" type="submit" class="ion-margin-top" color="secondary">
-      Add to Library & Start Reading
-    </ion-button>
-  </form>
-
-  <ion-alert
-    [isOpen]="showAlert"
-    [header]="alertMessage.includes('successfully') ? 'Success' : 'Error'"
-    [message]="alertMessage"
-    [buttons]="['OK']"
-    (didDismiss)="showAlert = false"
-  ></ion-alert>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="primary" id="open-add-book-modal">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <ion-modal trigger="open-add-book-modal" [isOpen]="isAddModalOpen" (willDismiss)="isAddModalOpen = false">
+    
+    <!-->ng-template>
+        <app-add-book-modal (bookAdded)="loadBooks(); isAddModalOpen = false" (closeModal)="isAddModalOpen = false"></app-add-book-modal>
+        
+    </ng-template>-->
+    
+  </ion-modal>
 
 </ion-content>

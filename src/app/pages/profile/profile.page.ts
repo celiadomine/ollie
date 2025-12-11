@@ -6,6 +6,7 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonToggle, IonItem, IonLabel, 
   IonList, IonListHeader 
 } from '@ionic/angular/standalone';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 const DARK_MODE_KEY = 'darkMode';
 
@@ -23,11 +24,55 @@ const DARK_MODE_KEY = 'darkMode';
 export class ProfilePage implements OnInit {
   
   isDarkMode: boolean = false;
+  isNotificationsEnabled: boolean = false;
   
   constructor() { }
 
   async ngOnInit() {
     await this.loadDarkModeState();
+    await this.checkNotificationStatus();
+  }
+
+  private async checkNotificationStatus() {
+    const permission = await LocalNotifications.checkPermissions();
+    this.isNotificationsEnabled = permission.display === 'granted';
+  }
+
+  async toggleNotifications(event: any) {
+    const enabled = event.detail.checked;
+    
+    if (enabled) {
+      const permission = await LocalNotifications.requestPermissions();
+      if (permission.display === 'granted') {
+        this.scheduleReadingReminder();
+        this.isNotificationsEnabled = true;
+      } else {
+        this.isNotificationsEnabled = false;
+        alert('Permission denied. Please enable notifications in device settings.');
+      }
+    } else {
+      await LocalNotifications.cancel({ notifications: [{ id: 1 }] });
+      this.isNotificationsEnabled = false;
+    }
+  }
+
+  private async scheduleReadingReminder() {
+    // Erstellt eine tägliche Erinnerung um 18:00 Uhr
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: "Ollie Reminder",
+          body: "Time to read! Your book is waiting for you.",
+          id: 1, // Wichtige ID zum späteren Löschen
+          schedule: {
+            // Jeden Tag um 18:00 Uhr
+            repeats: true, 
+            every: 'day',
+            on: { hour: 18, minute: 0 }
+          }
+        }
+      ]
+    });
   }
 
   private async loadDarkModeState() {

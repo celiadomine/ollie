@@ -2,23 +2,22 @@ import { Component, Input } from '@angular/core';
 import { Book } from 'src/app/data/Book';
 import { BookService} from 'src/app/services/book.service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, 
-  IonItem, IonLabel, IonInput, ModalController } from '@ionic/angular/standalone';
-
+  IonItem, IonLabel, IonInput, ModalController, IonButtons } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-progress',
   templateUrl: './edit-progress.component.html',
   styleUrls: ['./edit-progress.component.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, 
-    IonItem, IonLabel, IonInput ],
+  imports: [IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, 
+    IonItem, IonLabel, IonInput, FormsModule ],
   standalone: true,
 })
 
 export class EditProgressComponent {
   
-  @Input() book!: Book; // Das zu bearbeitende Buch
+  @Input() book!: Book; 
   
-  // Model für die Änderungen
   newPageInput: number = 0;
   newTimeInputMinutes: number = 0;
 
@@ -54,7 +53,7 @@ export class EditProgressComponent {
         timeInSeconds
       );
 
-      this.modalCtrl.dismiss(null, 'confirm'); // Schließt das Modal und signalisiert Erfolg
+      this.modalCtrl.dismiss(null, 'confirm'); 
 
     } catch (e) {
       console.error('Error updating manual progress:', e);
