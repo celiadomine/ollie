@@ -1,2 +1,76 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+:root {
+    /* BACKGROUND / TEXT */
+    --ion-background-color: #ffffff;
+    --ion-background-color-rgb: 255,255,255;
+    --ion-text-color: #000000;
+    --ion-text-color-rgb: 0,0,0;
+  
+    /* PRIMARY: Haupt-Aktionsfarbe (Buttons, Timer-Start) */
+    --ion-color-primary: #E91E63; /* Tiefes Pink */
+    --ion-color-primary-rgb: 233,30,99;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255,255,255;
+    --ion-color-primary-shade: #cc1b57;
+    --ion-color-primary-tint: #ea3573;
+  
+    /* SECONDARY: Akzentfarbe (Library Header, Formular-Aktion) */
+    --ion-color-secondary: #FF4081; /* Helles, kräftiges Pink */
+    --ion-color-secondary-rgb: 255,64,129;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255,255,255;
+    --ion-color-secondary-shade: #e03972;
+    --ion-color-secondary-tint: #ff548e;
+  
+    /* TERTIARY: Kontrast (Pastell-Pink) */
+    --ion-color-tertiary: #F48FB1; /* Pastell-Pink */
+    --ion-color-tertiary-rgb: 244,143,177;
+    --ion-color-tertiary-contrast: #000000;
+    --ion-color-tertiary-contrast-rgb: 0,0,0;
+    --ion-color-tertiary-shade: #d77e9c;
+    --ion-color-tertiary-tint: #f59aad;
+  
+    /* DANGER: Timer Pause (Dunkles Pink) */
+    --ion-color-danger: #C2185B;
+    --ion-color-danger-rgb: 194,24,91;
+  
+    /* SUCCESS: Grün bleibt für positive Rückmeldung */
+    --ion-color-success: #2dd36f;
+    --ion-color-success-rgb: 45,211,111;
+  
+    /* RESTLICHE FARBEN BEIBEHALTEN */
+  }
+body.dark {
+    /* BACKGROUND / TEXT */
+    --ion-background-color: #1a1a1a; /* Etwas weicher als reines Schwarz */
+    --ion-background-color-rgb: 26,26,26;
+    --ion-text-color: #f4f4f4;
+    --ion-text-color-rgb: 244,244,244;
+  
+    /* PRIMARY: Haupt-Aktionsfarbe (wird heller, um auf dem dunklen BG hervorzustechen) */
+    --ion-color-primary: #F06292; /* Helles Pink */
+    --ion-color-primary-rgb: 240,98,146;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0,0,0;
+    --ion-color-primary-shade: #d35680;
+    --ion-color-primary-tint: #f2729c;
+  
+    /* SECONDARY: Akzentfarbe */
+    --ion-color-secondary: #C2185B; /* Dunkles, warmes Pink */
+    --ion-color-secondary-rgb: 194,24,91;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255,255,255;
+    --ion-color-secondary-shade: #aa1550;
+    --ion-color-secondary-tint: #c62f6b;
+  
+    /* TERTIARY: Kontrast */
+    --ion-color-tertiary: #FFC1E3; /* Sehr helles Pink */
+    --ion-color-tertiary-rgb: 255,193,227;
+    --ion-color-tertiary-contrast: #000000;
+    --ion-color-tertiary-contrast-rgb: 0,0,0;
+    --ion-color-tertiary-shade: #e0abc7;
+    --ion-color-tertiary-tint: #ffc9e6;
+  
+    /* DANGER: Timer Pause (Klassisches Rot für bessere Warnung) */
+    --ion-color-danger: #EF5350;
+    --ion-color-danger-rgb: 239,83,80;
+  }

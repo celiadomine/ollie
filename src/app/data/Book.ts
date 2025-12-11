@@ -18,6 +18,19 @@ export interface Book {
     created_at: string; 
 }
 
-// Interface für die Daten, die beim Erstellen eines neuen Buches benötigt werden 
-// (ohne die automatisch generierten Felder wie id, created_at)
-export type BookInsert = Omit<Book, 'id' | 'created_at' | 'total_reading_time'>;
+export interface BookInsert {
+    title: string;
+    author: string;
+    genre: string;
+    format: 'physical' | 'ebook' | 'audio';
+    status: 'Currently reading' | 'Read' | 'Planned';
+    total_pages: number;
+    // Die folgenden Felder werden im BookService auf Standardwerte gesetzt, 
+    // müssen aber optional sein, falls die Logik sich ändert.
+    current_page?: number; 
+    total_reading_time?: number;
+    rating?: number;
+    user_id?: string | null;
+    cover_url?: string | null;
+    review_text?: string | null;
+}

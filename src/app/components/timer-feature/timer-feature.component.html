@@ -1,3 +1,50 @@
-<p>
-  time-feature works!
-</p>
+<ion-card class="ion-text-center">
+  <ion-card-header color="text-color">
+    <ion-card-title>Reading Timer</ion-card-title>
+    <ion-card-subtitle>
+      {{ currentSessionTime | counter }}
+    </ion-card-subtitle>
+  </ion-card-header>
+  
+  <ion-card-content>
+
+    <ion-button 
+      expand="block" 
+      size="large"
+      [color]="isTimerRunning ? 'danger' : 'primary'"
+      (click)="toggleTimer()">
+      <ion-icon 
+        slot="start" 
+        [name]="isTimerRunning ? 'pause-outline' : 'play-outline'">
+      </ion-icon >
+      {{ isTimerRunning ? 'Pause Session' : 'Start Reading' }}
+    </ion-button>
+
+    <hr>
+    
+    @if (!isTimerRunning && currentSessionTime > 0) {
+      <p class="ion-text-start ion-margin-top">
+        You read for <strong>{{ currentSessionTime | counter }}</strong>.
+      </p>
+
+      <ion-item fill="outline" class="ion-margin-vertical">
+        <ion-label position="floating">Finished Page</ion-label>
+        <ion-input 
+          type="number" 
+          placeholder="{{ currentPage }}" 
+          [(ngModel)]="newPageInput">
+        </ion-input>
+      </ion-item>
+
+      <ion-button 
+        expand="block" 
+        color="primary" 
+        [disabled]="!newPageInput || newPageInput < (currentPage ?? 0)"
+        (click)="saveReadingProgress()">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Save Progress
+      </ion-button>
+    }
+
+  </ion-card-content>
+</ion-card>
