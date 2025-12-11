@@ -120,43 +120,47 @@ export class TimerFeatureComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // --- Speicherung des Fortschritts ---
 
-  async saveReadingProgress() {
-    if (!this.bookId || !this.newPageInput) {
-      console.error('Book ID or new page input is missing.');
+async saveReadingProgress() {
+  // 1. Validierung
+  if (!this.bookId || this.newPageInput === undefined || this.currentPage === undefined) {
+      console.error('Book ID or page data is missing.');
       return;
-    }
-    
-    // Konvertiert die aktuelle Sitzungszeit in Sekunden in eine ganze Zahl
-    const timeSpentSeconds = this.currentSessionTime;
-    
-    try {
-      // 1. Speichert Fortschritt und akkumuliert die Zeit in Supabase
-      await this.bookService.updateProgress(
-        this.bookId, 
-        this.newPageInput, 
-        timeSpentSeconds
+  }
+  
+  // 2. Daten vorbereiten
+  const timeSpentSeconds = this.currentSessionTime;
+  
+  const updates = {
+      current_page: this.newPageInput,
+
+  };
+
+  try {
+
+      await this.bookService.addReadingProgress(
+          this.bookId, 
+          this.newPageInput, 
+          timeSpentSeconds
       );
 
       // 2. Setzt den Timer zurück und löscht den Zustand
       this.currentSessionTime = 0;
       this.isTimerRunning = false;
       this.startTime = 0;
-      this.newPageInput = this.currentPage;
+      this.newPageInput = this.currentPage; // Setzt die Seite auf den Stand vom Parent
       this.clearTimerState();
       if (this.timerInterval) {
-        clearInterval(this.timerInterval);
+          clearInterval(this.timerInterval);
       }
 
-      // 3. Informiert die HomePage, dass die Daten neu geladen werden müssen
       this.progressUpdated.emit();
       
       alert(`Progress saved! Read until page ${this.newPageInput}. Time added: ${timeSpentSeconds}s.`);
       
-    } catch (e) {
+  } catch (e) {
       alert('Error saving progress. Check console for details.');
       console.error(e);
-    }
   }
+}
 }

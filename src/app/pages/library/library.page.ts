@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Book, BookInsert } from 'src/app/data/Book';
 import { BookService } from 'src/app/services/book.service';
-import { ModalController, IonListHeader } from '@ionic/angular/standalone'; // Für Edit/Add Modals
+import { ModalController, IonListHeader } from '@ionic/angular/standalone'; 
+
 // Neue Ionic Imports für Library
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, 
@@ -14,21 +15,21 @@ import { addIcons } from 'ionicons';
 import { addOutline, createOutline, trashOutline } from 'ionicons/icons';
 
 import { EditProgressComponent } from 'src/app/components/edit-progress/edit-progress.component'; 
-// HINWEIS: Das Add Book Formular muss eine eigene Modal-Komponente werden (AddBookModalComponent)!
+import { AddBookComponent } from 'src/app/components/add-book/add-book.component';
 
 @Component({
   selector: 'app-library',
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
   standalone: true,
-  imports: [IonListHeader, 
-    CommonModule, FormsModule, 
-    IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, 
+  imports: [IonListHeader,
+    CommonModule, FormsModule,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem,
     IonLabel, IonButton, IonAlert, IonBadge, IonSegment, IonSegmentButton,
-    IonFab, IonFabButton, IonIcon, IonButtons, IonModal, 
+    IonFab, IonFabButton, IonIcon, IonButtons, IonModal,
     EditProgressComponent // Importiert den Modal
     // AddBookModalComponent (muss noch erstellt werden)
-  ]
+    , AddBookComponent]
 })
 export class LibraryPage implements OnInit {
   
@@ -37,9 +38,6 @@ export class LibraryPage implements OnInit {
   
   // Filter-Status
   selectedStatusFilter: 'all' | 'Currently reading' | 'Want to read' | 'Read' = 'all'; 
-
-  // Modal-Zustand für das Hinzufügen
-  isAddModalOpen: boolean = false; 
 
   showAlert: boolean = false;
   alertMessage: string = '';
@@ -105,5 +103,19 @@ export class LibraryPage implements OnInit {
     }
   }
 
-  // HINWEIS: Die Logik zum Hinzufügen (addBook) muss jetzt in die neue Modal-Komponente verschoben werden!
+  async openAddBook() {
+    const modal = await this.modalCtrl.create({
+      component: AddBookComponent 
+    });
+
+    await modal.present();
+    const { role } = await modal.onWillDismiss();
+
+    // Wenn das Buch erfolgreich hinzugefügt wurde ('confirm' in addBook())
+    if (role === 'confirm') {
+      await this.loadBooks(); 
+      this.alertMessage = 'Book successfully added!';
+      this.showAlert = true;
+    }
+  }
 }

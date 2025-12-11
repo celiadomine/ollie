@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Add New Book</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        Cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <form (ngSubmit)="addBook()">
+    
+    <ion-item>
+      <ion-label position="floating">Title *</ion-label>
+      <ion-input [(ngModel)]="newBook.title" name="title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Author *</ion-label>
+      <ion-input [(ngModel)]="newBook.author" name="author" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Genre</ion-label>
+      <ion-select [(ngModel)]="newBook.genre" name="genre">
+        @for (g of genres; track g) {
+          <ion-select-option [value]="g">{{ g }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Format</ion-label>
+      <ion-select [(ngModel)]="newBook.format" name="format">
+        @for (f of formats; track f) {
+          <ion-select-option [value]="f">{{ f | titlecase }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Total Pages *</ion-label>
+      <ion-input type="number" min="1" [(ngModel)]="newBook.total_pages" name="pages" required></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Status</ion-label>
+      <ion-select [(ngModel)]="newBook.status" name="status">
+        @for (s of statuses; track s) {
+          <ion-select-option [value]="s">{{ s }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    
+    <ion-button expand="block" type="submit" class="ion-margin-top" color="secondary">
+      <ion-icon name="book-outline" slot="start"></ion-icon>
+      Add Book
+    </ion-button>
+    
+  </form>
+
+</ion-content>

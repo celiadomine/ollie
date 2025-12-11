@@ -1,37 +1,68 @@
 <ion-header>
-  <ion-toolbar color="secondary">
-    <ion-title>Edit Progress: {{ book.title }}</ion-title>
-      <ion-button slot="end" (click)="closeModal()">Close</ion-button>
+  <ion-toolbar color="primary">
+    <ion-title>Edit Book</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cancel</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <p>Update your reading progress manually.</p>
   
+  <h2>Details</h2>
+
   <ion-item>
-    <ion-label position="floating">Current Page (of {{ book?.total_pages }})</ion-label>
+    <ion-label position="floating">Status</ion-label>
+    <ion-select [(ngModel)]="newStatus" name="status">
+      @for (s of statuses; track s) {
+        <ion-select-option [value]="s">{{ s }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Genre</ion-label>
+    <ion-select [(ngModel)]="newGenre" name="genre">
+      @for (g of genres; track g) {
+        <ion-select-option [value]="g">{{ g }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Format</ion-label>
+    <ion-select [(ngModel)]="newFormat" name="format">
+      @for (f of formats; track f) {
+        <ion-select-option [value]="f">{{ f | titlecase }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+  
+  <h2 class="ion-margin-top">Progress</h2>
+
+  <ion-item>
+    <ion-label position="floating">Current Page (Max: {{ book?.total_pages }})</ion-label>
     <ion-input type="number" 
-               min="{{ book.current_page }}" 
-               [max]="book.total_pages"
+               [min]="0" 
+               [max]="book?.total_pages"
                [(ngModel)]="newPageInput" 
-               required>
+               name="page">
     </ion-input>
   </ion-item>
   
   <ion-item>
-    <ion-label position="floating">Total Reading Time (in Minutes)</ion-label>
+    <ion-label position="floating">Total Reading Time (Minutes)</ion-label>
     <ion-input type="number" 
-               min="0" 
+               min="0"
                [(ngModel)]="newTimeInputMinutes" 
-               required>
+               name="time">
     </ion-input>
   </ion-item>
-  
+
   <ion-button expand="block" 
-    class="ion-margin-top" 
-    color="primary" 
-    [disabled]="newPageInput" 
-    (click)="saveChanges()">
-    Save Manual Changes
+              class="ion-margin-top" 
+              color="secondary" 
+              (click)="saveChanges()">
+    Save All Changes
   </ion-button>
 </ion-content>

@@ -53,19 +53,10 @@
 
   </ion-list>
   
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button color="primary" id="open-add-book-modal">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  
-  <ion-modal trigger="open-add-book-modal" [isOpen]="isAddModalOpen" (willDismiss)="isAddModalOpen = false">
-    
-    <!-->ng-template>
-        <app-add-book-modal (bookAdded)="loadBooks(); isAddModalOpen = false" (closeModal)="isAddModalOpen = false"></app-add-book-modal>
-        
-    </ng-template>-->
-    
-  </ion-modal>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button color="primary" (click)="openAddBook()">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 
 </ion-content>
