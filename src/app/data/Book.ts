@@ -5,7 +5,7 @@ export interface Book {
     genre: string;
     
     format: 'physical' | 'e book' | 'audiobook'; 
-    status: 'Want to read' | 'Currently reading' | 'Read' | 'Stopped';
+    status: 'Want to read' | 'Currently reading' | 'Read';
     total_pages: number ;
     current_page: number; 
     total_reading_time: number; 
@@ -23,7 +23,7 @@ export interface BookInsert {
     author: string;
     genre: string;
     format: 'physical' | 'ebook' | 'audio';
-    status: 'Want to read' | 'Currently reading' | 'Read' | 'Stopped';
+    status: 'Want to read' | 'Currently reading' | 'Read';
     total_pages: number;
     // Die folgenden Felder werden im BookService auf Standardwerte gesetzt, 
     // müssen aber optional sein, falls die Logik sich ändert.

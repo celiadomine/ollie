@@ -9,6 +9,11 @@
   @if (currentBook) {
     <app-current-read [currentBook]="currentBook"></app-current-read>
 
+    <h1 class="ion-text-center">
+      You're currently reading: 
+      <br>
+      <strong class="ion-text-primary">{{ currentBook.title }}</strong>
+    </h1>
     <app-timer-feature 
       [bookId]="currentBook.id" 
       [currentPage]="currentBook.current_page"

@@ -38,7 +38,7 @@ export class EditProgressComponent {
   // Listen für Selects
   genres = ['Fiction', 'Non-Fiction', 'Fantasy', 'Science Fiction', 'Thriller', 'Mystery', 'Romance', 'Other'];
   formats = ['physical', 'ebook', 'audiobook'];
-  statuses = ['Want to read', 'Currently reading', 'Read', 'Stopped'];
+  statuses = ['Want to read', 'Currently reading', 'Read'];
 
   constructor(
     private modalCtrl: ModalController,

@@ -41,7 +41,7 @@ export class AddBookComponent {
   formats = ['physical', 'ebook', 'audiobook'];
 
   // Status für die Auswahl
-  statuses = ['Want to read', 'Currently reading', 'Read', 'Stopped'];
+  statuses = ['Want to read', 'Currently reading', 'Read'];
 
   constructor(
     private modalCtrl: ModalController,

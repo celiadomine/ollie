@@ -1,0 +1,13 @@
+ion-toolbar ion-segment-button {
+    flex-direction: column;
+  }
+  
+  ion-toolbar ion-segment-button ion-label {
+    font-size: 0.65rem !important; 
+    margin-top: 2px; 
+    text-transform: none; 
+  }
+
+  ion-toolbar ion-segment-button {
+    min-width: 0; 
+  }

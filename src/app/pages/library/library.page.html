@@ -7,27 +7,32 @@
 <ion-content [fullscreen]="true">
     
   <ion-toolbar>
-    <ion-segment [(ngModel)]="selectedStatusFilter" (ionChange)="filterBooks()">
+    <ion-segment [(ngModel)]="selectedStatusFilter" (ionChange)="filterBooks()" value="all">
+      
       <ion-segment-button value="all">
+        <ion-icon name="library-outline"></ion-icon>
         <ion-label>All</ion-label>
       </ion-segment-button>
+      
       <ion-segment-button value="Currently reading">
+        <ion-icon name="book-outline"></ion-icon>
         <ion-label>Reading</ion-label>
       </ion-segment-button>
+      
       <ion-segment-button value="Want to read">
+        <ion-icon name="bookmark-outline"></ion-icon>
         <ion-label>Planned</ion-label>
       </ion-segment-button>
+      
       <ion-segment-button value="Read">
-        <ion-label>Finished</ion-label>
+        <ion-icon name="checkmark-done-outline"></ion-icon> 
+        <ion-label>Done</ion-label>
       </ion-segment-button>
+      
     </ion-segment>
   </ion-toolbar>
 
   <ion-list>
-    <ion-header>
-      <ion-label>Total Books: {{ filteredBooks.length }}</ion-label>
-    </ion-header>
-
     @for (book of filteredBooks; track book.id) {
       <ion-item detail>
         <ion-label>
@@ -37,7 +42,7 @@
         </ion-label>
         
         <ion-buttons slot="end">
-            <ion-button color="primary" (click)="openEditBookModal(book)">
+            <ion-button color="primary" (click)="editBookModal(book)">
                 <ion-icon name="create-outline"></ion-icon>
             </ion-button>
             <ion-button color="danger" (click)="deleteBook(book.id)">

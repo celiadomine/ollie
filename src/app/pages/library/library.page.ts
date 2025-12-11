@@ -12,7 +12,7 @@ import {
   IonFab, IonFabButton, IonIcon, IonButtons, IonModal 
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { addOutline, createOutline, trashOutline } from 'ionicons/icons';
+import { addOutline, createOutline, trashOutline, libraryOutline, bookOutline, bookmarkOutline, checkmarkDoneOutline } from 'ionicons/icons';
 
 import { EditProgressComponent } from 'src/app/components/edit-progress/edit-progress.component'; 
 import { AddBookComponent } from 'src/app/components/add-book/add-book.component';
@@ -46,7 +46,7 @@ export class LibraryPage implements OnInit {
     private bookService: BookService,
     private modalCtrl: ModalController
   ) {
-    addIcons({ addOutline, createOutline, trashOutline });
+    addIcons({libraryOutline,bookOutline,bookmarkOutline,checkmarkDoneOutline,createOutline,trashOutline,addOutline});
   }
 
   async ngOnInit() {
@@ -83,7 +83,7 @@ export class LibraryPage implements OnInit {
   }
 
   // --- EDIT BUCH MODAL (Aktualisiert Status, Genre, etc.) ---
-  async openEditBookModal(book: Book) {
+  async editBookModal(book: Book) {
     // Da wir das EditProgressModal bereits erstellt haben, verwenden wir es
     // und fügen später die Logik für Status/Genre-Änderungen hinzu.
     const modal = await this.modalCtrl.create({
@@ -94,13 +94,7 @@ export class LibraryPage implements OnInit {
     });
 
     await modal.present();
-    const { role } = await modal.onWillDismiss();
 
-    if (role === 'confirm') {
-      await this.loadBooks();
-      this.alertMessage = 'Book updated successfully.';
-      this.showAlert = true;
-    }
   }
 
   async openAddBook() {
